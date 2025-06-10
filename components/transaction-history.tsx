@@ -342,7 +342,7 @@ export function TransactionHistory() {
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="text-lg">Transaction History</CardTitle>
-            <CardDescription>Last 2 months of bridge transactions with smart caching</CardDescription>
+            <CardDescription>Last 2 months of bridge transactions</CardDescription>
           </div>
           <Button
             variant="outline"

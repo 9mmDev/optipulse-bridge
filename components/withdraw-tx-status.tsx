@@ -65,25 +65,25 @@ export function WithdrawTxStatus({
       key: "proving",
       label: "Proving (L1)",
       hash: proveHash,
-      explorerUrl: proveHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/tx/${proveHash}` : undefined,
+      explorerUrl: proveHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/#/tx/${proveHash}` : undefined,
     },
     {
       key: "proved",
       label: "Proved - waiting for challenge period",
       hash: proveHash,
-      explorerUrl: proveHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/tx/${proveHash}` : undefined,
+      explorerUrl: proveHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/#/tx/${proveHash}` : undefined,
     },
     {
       key: "finalizing",
       label: "Finalizing (L1)",
       hash: finalizeHash,
-      explorerUrl: finalizeHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/tx/${finalizeHash}` : undefined,
+      explorerUrl: finalizeHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/#/tx/${finalizeHash}` : undefined,
     },
     {
       key: "finalized",
       label: "Finalized",
       hash: finalizeHash,
-      explorerUrl: finalizeHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/tx/${finalizeHash}` : undefined,
+      explorerUrl: finalizeHash ? `${NEXT_PUBLIC_L1_EXPLORER_URL}/#/tx/${finalizeHash}` : undefined,
     },
   ]
 

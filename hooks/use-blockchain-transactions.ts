@@ -336,11 +336,8 @@ export function useBlockchainTransactions() {
 
     try {
       console.log("Fetching withdrawal transactions for:", address)
-      console.log("L2ToL1MessagePasser address:", L2_TO_L1_MESSAGE_PASSER)
-
       // Get current block number
       const currentBlock = await publicClientL2.getBlockNumber()
-      console.log("Current L2 block:", currentBlock)
 
       // Calculate the start block for 2-month window
       const twoMonthStartBlock = calculateStartBlock(currentBlock, "L2")

@@ -1758,6 +1758,11 @@ export const portal2Abi = [
     },
     {
         inputs: [],
+        name: "OptimismPortal_InvalidRootClaim",
+        type: "error",
+    },
+    {
+        inputs: [],
         name: "OptimismPortal_ProofNotOldEnough",
         type: "error",
     },

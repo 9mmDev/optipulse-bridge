@@ -4,6 +4,8 @@ import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { tokens } from "@/config/tokens"
+import Image from 'next/image';
+
 
 interface SimpleTokenSelectorProps {
   value: string
@@ -31,8 +33,18 @@ export function SimpleTokenSelector({ value, onChange }: SimpleTokenSelectorProp
         }}
       >
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
-            {selectedToken.symbol.charAt(0)}
+          <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold">
+             {selectedToken.logoURI ? (
+                <Image
+                  src={selectedToken.logoURI}
+                  alt={selectedToken.symbol}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+              ) : (
+                selectedToken.symbol.charAt(0)
+              )}
           </div>
           <span>{selectedToken.symbol}</span>
         </div>
@@ -51,9 +63,20 @@ export function SimpleTokenSelector({ value, onChange }: SimpleTokenSelectorProp
                   handleTokenSelect(token.symbol)
                 }}
               >
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
-                  {token.symbol.charAt(0)}
-                </div>
+           <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+              {token.logoURI ? (
+                <Image
+                  src={token.logoURI}
+                  alt={token.symbol}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+              ) : (
+                token.symbol.charAt(0)
+              )}
+            </div>
+
                 <div>
                   <div className="font-medium">{token.symbol}</div>
                   <div className="text-xs text-gray-500">{token.name}</div>

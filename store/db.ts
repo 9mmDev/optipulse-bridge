@@ -8,7 +8,9 @@ export type WithdrawStatus =
   | "proved"
   | "finalizing"
   | "finalized"
+  | "failed"
 
+// Add a new field to the WithdrawState interface to track the prove timestamp separately
 export interface WithdrawState {
   id?: number
   withdrawalHash: string
@@ -23,6 +25,7 @@ export interface WithdrawState {
   proveArgs?: any
   proveHash?: string
   proveReceipt?: any
+  proveTimestamp?: Date // Add this new field to track when the withdrawal was proven
   finalizeHash?: string
   finalizeReceipt?: any
 }

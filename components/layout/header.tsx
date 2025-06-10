@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { MoonIcon, SunIcon, WalletIcon, ArrowUpDown, ExternalLink, History, Search } from "lucide-react"
+import { MoonIcon, SunIcon, WalletIcon, ArrowUpDown, ExternalLink, History, ZapIcon } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { useTheme } from "next-themes"
 import Link from "next/link"
@@ -21,16 +21,23 @@ const WalletSection = dynamic(() => import("./wallet-section"), {
 })
 
 export function Header() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    // Force dark mode if no theme is set
+    if (!theme || theme === "system") {
+      setTheme("dark")
+    }
+  }, [theme, setTheme])
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
+    setTheme(resolvedTheme === "dark" ? "light" : "dark")
   }
+
+  // Determine if dark mode is active
+  const isDarkMode = mounted && resolvedTheme === "dark"
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -38,7 +45,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600">
-              <ArrowUpDown className="h-5 w-5 text-white" />
+              <ZapIcon className="h-5 w-5 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold tracking-tight">{NEXT_PUBLIC_L2_CHAIN_NAME} Bridge</h1>
@@ -52,7 +59,6 @@ export function Header() {
               {[
                 { href: "/", label: "Bridge", icon: ArrowUpDown },
                 { href: "/transactions", label: "Transactions", icon: History },
-                { href: "/withdrawal-status", label: "Check Withdrawals", icon: Search },
               ].map((link) => (
                 <Link
                   key={link.label}
@@ -89,9 +95,9 @@ export function Header() {
 
             {/* Theme Toggle */}
             <div className="flex items-center space-x-2 rounded-lg border p-1">
-              <SunIcon className="h-4 w-4 text-muted-foreground" />
-              <Switch checked={theme === "dark"} onCheckedChange={toggleTheme} size="sm" />
-              <MoonIcon className="h-4 w-4 text-muted-foreground" />
+              <SunIcon className={`h-4 w-4 ${!isDarkMode ? "text-foreground" : "text-muted-foreground"}`} />
+              <Switch checked={isDarkMode} onCheckedChange={toggleTheme}  />
+              <MoonIcon className={`h-4 w-4 ${isDarkMode ? "text-foreground" : "text-muted-foreground"}`} />
             </div>
 
             {/* Wallet Section - Only render on client */}

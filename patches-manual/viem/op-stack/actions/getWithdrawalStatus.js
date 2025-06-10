@@ -163,6 +163,7 @@ export async function getWithdrawalStatus(client, parameters) {
                     'OptimismPortal: withdrawal has not been proven by proof submitter address yet',
                     'OptimismPortal: dispute game created before respected game type was updated',
                     'InvalidGameType',
+                    'OptimismPortal_InvalidRootClaim',
                     'LegacyGame',
                     'Unproven',
                     'OptimismPortal_Unproven',

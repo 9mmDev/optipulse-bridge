@@ -2,19 +2,35 @@
 
 import { Header } from "@/components/layout/header"
 import dynamic from "next/dynamic"
-import { Suspense } from "react"
+import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
 
 // Dynamically import WithdrawalStatusChecker with no SSR
-const WithdrawalStatusChecker = dynamic(() => import("@/components/withdrawal-status-checker").then(mod => ({ default: mod.WithdrawalStatusChecker })), {
-  ssr: false,
-  loading: () => (
-    <div className="text-center py-8 text-muted-foreground">
-      <p>Loading withdrawal status checker...</p>
-    </div>
-  ),
-})
+const WithdrawalStatusChecker = dynamic(
+  () => import("@/components/withdrawal-status-checker").then((mod) => ({ default: mod.WithdrawalStatusChecker })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="text-center py-8 text-muted-foreground">
+        <p>Loading withdrawal status checker...</p>
+      </div>
+    ),
+  },
+)
 
 export default function WithdrawalStatusPage() {
+  const searchParams = useSearchParams()
+  const [txHash, setTxHash] = useState<string | null>(null)
+  const [key, setKey] = useState(0) // Add a key to force re-render
+
+  useEffect(() => {
+    // Get the hash from URL query parameter
+    const hash = searchParams.get("hash")
+    if (hash && hash !== txHash) {
+      setTxHash(hash)
+    }
+  }, [searchParams, txHash])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <Header />
@@ -26,7 +42,8 @@ export default function WithdrawalStatusPage() {
             Check the status of any withdrawal transaction and track its progress through the withdrawal process.
           </p>
 
-          <WithdrawalStatusChecker />
+          {/* Use key to force re-render when hash changes */}
+          <WithdrawalStatusChecker key={key} initialHash={txHash} />
         </div>
       </main>
     </div>

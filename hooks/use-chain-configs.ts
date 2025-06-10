@@ -47,7 +47,6 @@ export function useChainConfigs() {
       return null
     }
 
-    console.log("Creating L1 wallet client")
     try {
       return createWalletClient({
         chain: l1Chain,
@@ -64,8 +63,6 @@ export function useChainConfigs() {
       console.log("Cannot create L2 wallet client - missing dependencies", { connector, isConnected, ethereum })
       return null
     }
-
-    console.log("Creating L2 wallet client")
     try {
       return createWalletClient({
         chain: l2Chain,
@@ -76,6 +73,9 @@ export function useChainConfigs() {
       return null
     }
   }, [connector, isConnected, ethereum])
+
+
+
 
   return {
     publicClientL1,
